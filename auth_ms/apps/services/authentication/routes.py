@@ -1,0 +1,144 @@
+# -*- encoding: utf-8 -*-
+"""
+Copyright (c) 2019 - present AppSeed.us
+"""
+
+from flask import render_template, redirect, request, url_for, Response
+# from flask_login import (
+#     current_user,
+#     login_user,
+#     logout_user
+# )
+
+# from apps import db, login_manager
+from apps.services.authentication import blueprint
+# from apps.services.authentication.forms import LoginForm, CreateAccountForm
+# from apps.services.authentication.models import Users
+
+# from apps.services.authentication.util import verify_pass
+import logging, requests, json, os
+from auth0.authentication import GetToken, Database, Users
+from dotenv import load_dotenv
+load_dotenv()
+
+auth0_domain = os.getenv('AUTH0_DOMAIN')
+auth0_client = os.getenv('AUTH0_CLIENT_ID')
+auth0_secret = os.getenv('AUTH0_SECRET')
+chat_service_endpoint = os.getenv("CHAT_ENDPOINT_URL", "http://10.0.0.14:5000")
+
+@blueprint.route('/')
+def route_default():
+    logging.info('We are here')
+    # return redirect(url_for('authentication_blueprint.login'))
+    return redirect(url_for('home_blueprint.index'))
+
+# Login & Registration
+
+@blueprint.route('/login', methods=['POST'])
+def login(user=None, passw=None):
+    # read form data
+    # print(request.json)
+    if 'username' in request.json:
+        username = request.json['username']
+    else:
+        username = user
+
+    if 'password' in request.json:
+        password = request.json['password']
+    else:
+        password = passw 
+
+    # logging.info(username)
+    # logging.info(password)
+    # Locate user
+
+    token = GetToken(auth0_domain, auth0_client, client_secret=auth0_secret)
+
+    response = token.login(username=username, password=password, realm='Username-Password-Authentication')
+    userData = userInfo(response['access_token'])
+    response["userData"]=userData
+    response["email"]=userData['email']
+    response["photo"]=userData['picture']
+    response["userId"]=userData['sub'].split("|")[1]
+    return response
+
+
+@blueprint.route('/me', methods=['POST'])
+def userInfo(token=None):
+    # read form data
+    print(request.json)
+    if 'access_token' in request.json:
+        access_token = request.json['access_token']
+    elif token is not None:
+        access_token = token 
+    else:
+        return {"success": False, "msg": "Token mismtach"}
+    
+
+    # logging.info(access_token)
+    # Locate user
+
+    users = Users(auth0_domain, auth0_client)
+
+    response = users.userinfo(access_token=access_token)
+
+    return response
+
+@blueprint.route('/logout', methods=['POST'])
+def logout():
+    # read form data
+    # print(request.json)
+    # access_token = request.json['access_token']
+
+    # logging.info(access_token)
+    # Locate user
+
+    # users = Users('1724-chat.us.auth0.com', 'SQfDlgv1W9DiYlQlrJKAwbjqd6ybwsxW')
+
+    # response = users.userinfo(access_token=access_token)
+
+    return {"success": True}
+
+@blueprint.route('/signup', methods=['POST'])
+def register():
+    try:
+        username = request.json['username']
+        password = request.json['password']
+
+        database = Database(auth0_domain, auth0_client)
+
+        signup = database.signup(email=username, password=password, connection='Username-Password-Authentication')
+        response = login(user=username, passw=password)
+        # print(response)
+        
+        account_response = requests.post(chat_service_endpoint + '/create_account',json={"username": response['email'], "userid":response['userId']})
+        response["new_account"]=json.loads(account_response.text)
+        
+    except (ValueError, KeyError, TypeError) as error:
+        print(error)
+        resp = Response({"JSON Format Error."}, status=400, mimetype='application/json')
+        return resp
+
+
+    return response
+
+# Errors
+
+# @login_manager.unauthorized_handler
+# def unauthorized_handler():
+#     return redirect(url_for('authentication_blueprint.login'))
+
+
+@blueprint.errorhandler(403)
+def access_forbidden(error):
+    return redirect(url_for('authentication_blueprint.login'))
+
+
+@blueprint.errorhandler(404)
+def not_found_error(error):
+    return render_template('home/page-404.html'), 404
+
+
+@blueprint.errorhandler(500)
+def internal_error(error):
+    return render_template('home/page-500.html'), 500
