@@ -4,6 +4,8 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 import os, random, string
+from dotenv import load_dotenv
+load_dotenv()
 
 class Config(object):
 
@@ -63,12 +65,12 @@ class ProductionConfig(Config):
     # REMEMBER_COOKIE_HTTPONLY = True
     # REMEMBER_COOKIE_DURATION = 3600
     WTF_CSRF_ENABLED = True
-    SECRET_KEY = "atsgychujwegji16342184782108329"
+    SECRET_KEY = os.getenv('APP_SECRET_KEY')
 
 class DebugConfig(Config):
     DEBUG = True
     WTF_CSRF_ENABLED = True
-    SECRET_KEY = "atsgychujwegji16342184782108329"
+    SECRET_KEY = os.getenv('APP_SECRET_KEY')
 
 
 # Load all possible configurations
