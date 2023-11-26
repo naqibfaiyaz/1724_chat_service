@@ -1,8 +1,11 @@
 # Chat MS service
 
 ✅ Client = React frontend
+
 ✅ Krakend = API gateway
+
 ✅ auth0 = authentication microservice
+
 ✅ backend = chat microservice
 
 client communicates with api gateway for all rest APIs. But client directly communicates with backend for socket.io.
