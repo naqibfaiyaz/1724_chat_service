@@ -38,7 +38,7 @@ $ docker run -d --name chat_service -p 5000:5000 chat_service:latest
 
 4. Run auth microservice in container
 ```bash
-$ cd ../auth0
+$ cd ../auth_ms
 $ cp .env.example .env
 ```
 change CHAT_ENDPOINT_URL value in .env file based on your local ip address; then run the following
