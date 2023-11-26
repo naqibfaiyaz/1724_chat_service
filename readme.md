@@ -50,6 +50,9 @@ $ docker run -d --name auth0 -p 5005:5005 auth0:latest
 5. Run API Gateway Krakend
 ```bash
 $ cd ../krakend
+```
+We need to change the endpoints for all the APIs, based on your hosting of chat MS and auth MS. Then run the following:
+```bash
 $ docker build --tag 'krakend' .
 $ docker run -d --name krakend -p 8080:8080 krakend:latest
 ```
