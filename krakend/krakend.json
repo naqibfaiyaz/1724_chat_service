@@ -38,7 +38,7 @@
           "sd": "static",
           "method": "POST",
           "host": [
-            "http://10.0.0.14:5005"
+            "http://192.168.144.18:5005"
           ],
           "disable_host_sanitize": false
         }
@@ -66,7 +66,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://10.0.0.14:5000"
+            "http://192.168.144.18:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -97,7 +97,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://10.0.0.14:5000"
+            "http://192.168.144.18:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -125,7 +125,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://10.0.0.14:5000"
+            "http://192.168.144.18:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -154,7 +154,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://10.0.0.14:5000"
+            "http://192.168.144.18:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -186,7 +186,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://10.0.0.14:5000"
+            "http://192.168.144.18:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -214,7 +214,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://10.0.0.14:5000"
+            "http://192.168.144.18:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -245,7 +245,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://10.0.0.14:5000"
+            "http://192.168.144.18:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -273,7 +273,7 @@
           "sd": "static",
           "method": "POST",
           "host": [
-            "http://10.0.0.14:5000"
+            "http://192.168.144.18:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -302,7 +302,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://10.0.0.14:5000"
+            "http://192.168.144.18:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -330,7 +330,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://10.0.0.14:5000"
+            "http://192.168.144.18:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -363,7 +363,7 @@
             }
           },
           "host": [
-            "http://10.0.0.14:5005"
+            "http://192.168.144.18:5005"
           ],
           "disable_host_sanitize": false
         }
@@ -385,7 +385,7 @@
             }
           },
           "host": [
-            "http://10.0.0.14:5005"
+            "http://192.168.144.18:5005"
           ],
           "disable_host_sanitize": false
         }
@@ -418,7 +418,7 @@
             }
           },
           "host": [
-            "http://10.0.0.14:5005"
+            "http://192.168.144.18:5005"
           ],
           "disable_host_sanitize": false
         }

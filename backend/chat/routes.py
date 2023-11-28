@@ -33,7 +33,7 @@ def get_me():
     user_key = utils.redis_client.get(username_key).decode("utf-8")
     print(user_key)
 
-    return jsonify({"id": int(user_key.split(':')[1]), "username": username_key.split(':')[1]})
+    return jsonify({"id": user_key.split(':')[1], "username": username_key.split(':')[1]})
 
 
 @app.route("/links")
@@ -69,7 +69,7 @@ def login():
         user_key = utils.redis_client.get(username_key).decode("utf-8")
         print(user_key)
 
-        return jsonify({"id": int(user_key.split(':')[1]), "username": username_key.split(':')[1]}), 200
+        return jsonify({"id": user_key.split(':')[1], "username": username_key.split(':')[1]}), 200
 
 
 @app.route("/logout", methods=["POST"])

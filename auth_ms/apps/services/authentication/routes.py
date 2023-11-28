@@ -24,7 +24,7 @@ load_dotenv()
 auth0_domain = os.getenv('AUTH0_DOMAIN')
 auth0_client = os.getenv('AUTH0_CLIENT_ID')
 auth0_secret = os.getenv('AUTH0_SECRET')
-chat_service_endpoint = os.getenv("CHAT_ENDPOINT_URL", "http://10.0.0.14:5000")
+chat_service_endpoint = os.getenv("CHAT_ENDPOINT_URL", "http://192.168.144.18:5000")
 
 @blueprint.route('/')
 def route_default():
