@@ -33,7 +33,7 @@ $ cp .env.example .env
 change REDIS_ENDPOINT_URL value in .env file based on your local ip address; then run the following
 ```bash
 $ docker build --tag 'chat_service' .
-$ docker run -e .env -d --name chat_service -p 5000:5000 chat_service:latest
+$ docker run --env-file ./.env -d --name chat_service -p 5000:5000 chat_service:latest
 ```
 
 4. Run auth microservice in container
@@ -44,7 +44,7 @@ $ cp .env.example .env
 change CHAT_ENDPOINT_URL value in .env file based on your local ip address; then run the following
 ```bash
 $ docker build --tag 'auth0' .
-$ docker run -e .env -d --name auth0 -p 5005:5005 auth0:latest
+$ docker run --env-file ./.env -d --name auth0 -p 5005:5005 auth0:latest
 ```
 
 5. Run API Gateway Krakend
