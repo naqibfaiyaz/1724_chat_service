@@ -60,6 +60,10 @@ def login(user=None, passw=None):
     response["email"]=userData['email']
     response["photo"]=userData['picture']
     response["userId"]=userData['sub'].split("|")[1]
+
+    account_response = requests.post(chat_service_endpoint + '/create_account',json={"username": response['email'], "userid":response['userId']})
+    response["new_account"]=json.loads(account_response.text)
+    
     return response
 
 
@@ -110,9 +114,6 @@ def register():
         signup = database.signup(email=username, password=password, connection='Username-Password-Authentication')
         response = login(user=username, passw=password)
         # print(response)
-        
-        account_response = requests.post(chat_service_endpoint + '/create_account',json={"username": response['email'], "userid":response['userId']})
-        response["new_account"]=json.loads(account_response.text)
         
     except (ValueError, KeyError, TypeError) as error:
         print(error)

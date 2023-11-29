@@ -1,7 +1,8 @@
-import json
+import json, logging
 
 from flask import session
 from flask_socketio import emit, join_room
+from chat import app
 
 from chat import utils
 
@@ -20,11 +21,18 @@ def publish(name, message, broadcast=False, room=None):
 def io_connect():
     """Handle socket.io connection, check if the session is attached"""
     # it's better to use get method for dict-like objects, it provides helpful setting of default value
+    # logger = logging.getLogger()
     user = session.get("user", None)
+    app.app.logger.debug("session")
+    app.app.logger.debug(session)
+    app.app.logger.debug("user")
+    app.app.logger.debug(user)
     if not user:
         return
 
     user_id = user.get("id", None)
+    app.app.logger.debug("user_id: ")
+    app.app.logger.debug(user_id)
     utils.redis_client.sadd("online_users", user_id)
 
     msg = dict(user)
@@ -59,9 +67,13 @@ def io_on_message(message):
         return htmlstring
 
     # Make sure nothing illegal is sent here.
+    app.app.logger.debug("message: ")
+    app.app.logger.debug(message)
     message["message"] = escape(message["message"])
     # The user might be set as offline if he tried to access the chat from another tab, pinging by message
     # resets the user online status
+    app.app.logger.debug("message_from: ")
+    app.app.logger.debug(message["from"])
     utils.redis_client.sadd("online_users", message["from"])
     # We've got a new message. Store it in db, then send back to the room. */
     message_string = json.dumps(message)

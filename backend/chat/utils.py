@@ -20,7 +20,7 @@ def create_user(userId, username):
     username_key = make_username_key(username)
     # Create a user
     # hashed_password = bcrypt.hashpw(str(password).encode("utf-8"), bcrypt.gensalt(10))
-    # next_id = redis_client.incr("total_users")
+    redis_client.incr("total_users")
     user_key = f"user:{userId}"
     redis_client.set(username_key, user_key)
     redis_client.hmset(user_key, {"username": username})
@@ -89,7 +89,7 @@ def init_redis():
         # Rooms with private messages don't have a name
         redis_client.set(f"room:0:name", "General")
 
-        demo_data.create()
+        # demo_data.create()
 
 # We use event stream for pub sub. A client connects to the stream endpoint and listens for the messages
 

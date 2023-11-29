@@ -25,14 +25,18 @@ def catch_all(path):
 @app.route("/me")
 def get_me():
     username = request.args.get("username")
-    print(username)
+    app.logger.debug(username)
     # username = data["username"]
 
     username_key = utils.make_username_key(username)
-    print(username_key)
+    app.logger.debug(username_key)
     user_key = utils.redis_client.get(username_key).decode("utf-8")
-    print(user_key)
-
+    app.logger.debug(user_key)
+    session["user"] = {"id": user_key.split(':')[1], "username": username_key.split(':')[1]}
+    app.logger.debug("session")
+    app.logger.debug(session)
+    app.logger.debug("session['user']")
+    app.logger.debug(session["user"])
     return jsonify({"id": user_key.split(':')[1], "username": username_key.split(':')[1]})
 
 
@@ -87,6 +91,8 @@ def get_online_users():
     )
     users = {}
     for online_id in online_ids:
+        app.logger.debug("online_id: ")
+        app.logger.debug(online_id)
         user = utils.redis_client.hgetall(f"user:{online_id}")
         users[online_id] = {
             "id": online_id,
@@ -152,6 +158,7 @@ def get_messages_for_selected_room(room_id="0"):
 @app.route("/users")
 def get_user_info_from_ids():
     ids = request.args.getlist("ids[]")
+    app.logger.debug(ids)
     if ids:
         users = {}
         for id in ids:

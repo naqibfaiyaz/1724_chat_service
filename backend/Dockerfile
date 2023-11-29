@@ -9,6 +9,7 @@ COPY .env .env
 # Expose port 8080
 EXPOSE 5000
 ENV PORT 5000
+ENV DEBUG True
 WORKDIR /app
 # Use gunicorn as the entrypoint
 CMD exec gunicorn --bind :$PORT --worker-class eventlet -w 1 app:app
