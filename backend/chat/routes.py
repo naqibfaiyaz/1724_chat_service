@@ -32,7 +32,8 @@ def get_me():
     app.logger.debug(username_key)
     user_key = utils.redis_client.get(username_key).decode("utf-8")
     app.logger.debug(user_key)
-    session["user"] = {"id": user_key.split(':')[1], "username": username_key.split(':')[1]}
+    if user_key and username_key:
+        session["user"] = {"id": user_key.split(':')[1], "username": username_key.split(':')[1]}
     app.logger.debug("session")
     app.logger.debug(session)
     app.logger.debug("session['user']")
@@ -80,7 +81,7 @@ def login():
 @auth_middleware
 def logout():
     session["user"] = None
-    return jsonify(None), 200
+    return jsonify({"success": True, "msg": "User logged out"}), 200
 
 
 @app.route("/users/online")
@@ -113,32 +114,39 @@ def get_rooms_for_user_id(user_id=0):
             list(utils.redis_client.smembers(f"user:{user_id}:rooms")),
         )
     )
+    print(room_ids)
     rooms = []
-
+    
     for room_id in room_ids:
         name = utils.redis_client.get(f"room:{room_id}:name")
-
-        # It's a room without a name, likey the one with private messages
-        if not name:
-            room_exists = utils.redis_client.exists(f"room:{room_id}")
-            if not room_exists:
-                continue
-
+        
+        if room_id=='0':
+            room_name = name.decode("utf-8")
+        else:
             user_ids = room_id.split(":")
             if len(user_ids) != 2:
                 return jsonify(None), 400
+            
+            room_name = utils.hmget(f"user:{user_ids[0]}", "username")[0] if user_id==user_ids[1] else utils.hmget(f"user:{user_ids[1]}", "username")[0]
 
-            rooms.append(
-                {
-                    "id": room_id,
-                    "names": [
-                        utils.hmget(f"user:{user_ids[0]}", "username"),
-                        utils.hmget(f"user:{user_ids[1]}", "username"),
-                    ],
-                }
-            )
-        else:
-            rooms.append({"id": room_id, "names": [name.decode("utf-8")]})
+            # room_name = user1 if session["user"]['username']==user2 else user2
+            # room_exists = utils.redis_client.exists(f"room:{room_id}")
+            # print(room_exists)
+            # if not room_exists:
+            #     continue
+
+            
+
+            # rooms.append(
+            #     {
+            #         "id": room_id,
+            #         "names": [
+            #             utils.hmget(f"user:{user_ids[0]}", "username"),
+            #             utils.hmget(f"user:{user_ids[1]}", "username"),
+            #         ],
+            #     }
+            # )
+        rooms.append({"id": room_id, "names": [room_name]})
     return jsonify(rooms), 200
 
 
@@ -154,6 +162,30 @@ def get_messages_for_selected_room(room_id="0"):
     except:
         return jsonify(None), 400
 
+@app.route("/room/create", methods=["POST"])
+@auth_middleware
+def create_chat_room():
+    utils.init_redis()
+    host = request.json["host"]
+    guest = request.json["guest"]
+    guest_name = request.json["guest_name"]
+    host_name = request.json["host_name"]
+
+    try:
+        private_room_id = utils.get_private_room_id(
+                host, guest
+            )
+        print(private_room_id)
+
+        if private_room_id:
+            res = utils.create_private_room(host, guest, host_name, guest_name)
+            room = res[0]
+
+        print(room)
+        return jsonify(room)
+    except Exception as error:
+        print(error)
+        return jsonify(None), 400
 
 @app.route("/users")
 def get_user_info_from_ids():

@@ -36,8 +36,13 @@ def get_messages(room_id=0, offset=0, size=50):
     if not room_exists:
         return []
     else:
-        values = redis_client.zrevrange(room_key, offset, offset + size)
-        return list(map(lambda x: json.loads(x.decode("utf-8")), values))
+        try:
+            print(room_key)
+            values = redis_client.zrevrange(room_key, offset, offset + size)
+            print(values)
+            return list(map(lambda x: json.loads(x.decode("utf-8")), values))
+        except Exception as error:
+            print(error)
 
 
 def hmget(key, key2):
@@ -49,20 +54,22 @@ def hmget(key, key2):
 
 
 def get_private_room_id(user1, user2):
-    if math.isnan(user1) or math.isnan(user2) or user1 == user2:
+    if user1 == user2:
         return None
     min_user_id = user2 if user1 > user2 else user1
     max_user_id = user1 if user1 > user2 else user2
-    return f"{min_user_id}:{max_user_id}"
+    return f"{user1}:{user2}"
 
 
-def create_private_room(user1, user2):
+def create_private_room(user1, user2, host_name, guest_name):
     """Create a private room and add users to it"""
     room_id = get_private_room_id(user1, user2)
     if not room_id:
         return None, True
 
     # Add rooms to those users
+    
+    redis_client.set(f"room:{room_id}:name", f"{host_name}:{guest_name}")
     redis_client.sadd(f"user:{user1}:rooms", room_id)
     redis_client.sadd(f"user:{user2}:rooms", room_id)
 

@@ -24,7 +24,7 @@ class Config(object):
 
 
 class ConfigDev(Config):
-    # DEBUG = True
+    DEBUG = True
     pass
 
 

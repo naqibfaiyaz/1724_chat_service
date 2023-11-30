@@ -1,21 +1,30 @@
 import os
-import sys
+import sys, logging
 
 from flask import Flask
-# from flask_cors import CORS
-# from flask_session import Session
-# from flask_socketio import SocketIO
+from flask_cors import CORS
+from flask_session import Session
+from flask_socketio import SocketIO
 
 from chat import utils
-# from chat.config import get_config
-# from chat.socketio_signals import io_connect, io_disconnect, io_join_room, io_on_message
+from chat.config import get_config
+from chat.socketio_signals import io_connect, io_disconnect, io_join_room, io_on_message
 
 # sess = Session()
 # app = Flask(__name__, static_url_path="", static_folder="../client/build")
 app = Flask(__name__)
 
+gunicorn_error_logger = logging.getLogger('gunicorn.error')
+app.logger.handlers.extend(gunicorn_error_logger.handlers)
+app.logger.setLevel(logging.DEBUG)
+app.logger.debug('this will show in the log')
+app.config.from_object(get_config())
+Session(app)
+CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*", allow_headers="*", manage_session=False)
 
-def run_app(socketio):
+
+def run_app():
     # Create redis connection etc.
     # Here we initialize our database, create demo data (if it's necessary)
     # TODO: maybe we need to do it for gunicorn run also?
@@ -36,6 +45,11 @@ def run_app(socketio):
     # we need socketio.run() instead of app.run() bc we need to use the eventlet server
     socketio.run(app, port=port, debug=True, use_reloader=True)
 
+# this was rewritten from decorators so we can move this methods to another file
+socketio.on_event("connect", io_connect)
+socketio.on_event("disconnect", io_disconnect)
+socketio.on_event("room.join", io_join_room)
+socketio.on_event("message", io_on_message)
 
 # routes moved to another file and we need to import it lately
 # bc they are using app from this file
