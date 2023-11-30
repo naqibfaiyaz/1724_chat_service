@@ -3,24 +3,18 @@ import { Toast } from "react-bootstrap";
 import React, { useState } from "react";
 // import Logo from "../Logo";
 import "./style.css";
-import "../../styles/style-overrides.css"
+// import { useEffect } from "react";
 
 // const DEMO_USERS = ["Pablo", "Joe", "Mary", "Alex"];
 
-export default function Login({ onLogIn, onSignup}) {
+export default function Signup({ onSignup }) {
   const [username, setEmail] = useState("naqib3110@gmail.com");
   const [password, setPassword] = useState("2C*GZ8Z*6#z%aah");
   const [error, setError] = useState(null);
-  
+
   const onSubmit = async (event) => {
     event.preventDefault();
-    onLogIn(username, password, setError);
-  };
-
-  const onSigningup = async (event) => {
-    event.preventDefault();
     onSignup(username, password, setError);
-    console.log(error, setError)
   };
 
   return (
@@ -46,7 +40,7 @@ export default function Login({ onLogIn, onSignup}) {
             >
               <div className="col text-primary text-left">
                 <h3 className="font-size-15">Welcome Back !</h3>
-                <p>Sign in to continue</p>
+                <p>Sign up now!</p>
               </div>
               <div className="col align-self-end">
                 <img
@@ -115,7 +109,7 @@ export default function Login({ onLogIn, onSignup}) {
             />
             <div style={{ height: 30 }} />
             <button className="btn btn-lg btn-primary btn-block" type="submit">
-              Sign in
+              Sign Up
             </button>
             <div className="login-error-anchor">
               <div className="toast-box">
@@ -140,9 +134,6 @@ export default function Login({ onLogIn, onSignup}) {
             </div>
             <div style={{ height: 30 }} />
           </form>
-            <button className="btn btn-lg btn-info btn-block" type="button" onClick={onSigningup}>
-              Sign Up
-            </button>
         </div>
       </div>
     </>

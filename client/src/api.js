@@ -44,9 +44,25 @@ export const login = (username, password) => {
       localStorage.setItem('access_token', x.data.id_token)
       localStorage.setItem('username', x.data.email)
       localStorage.setItem('userId', x.data.userId)
+      localStorage.setItem('profile_photo', x.data.photo)
     }
   )
     .catch(e => { throw new Error(e.response && e.response.data && e.response.data.message); });
+};
+
+/** Handle user signup */
+export const signup = (username, password) => {
+  return axios.post(auth_url('/signup'), {
+    username,
+    password
+  }).then(x =>{
+      localStorage.setItem('access_token', x.data.id_token)
+      localStorage.setItem('username', x.data.email)
+      localStorage.setItem('userId', x.data.userId)
+      localStorage.setItem('profile_photo', x.data.photo)
+    }
+  )
+    .catch(e => { throw(e.response); });
 };
 
 export const logOut = () => {
@@ -54,6 +70,7 @@ export const logOut = () => {
       localStorage.removeItem('access_token')
       localStorage.removeItem('username')
       localStorage.removeItem('userId')
+      localStorage.removeItem('profile_photo')
     }
   )
     .catch(e => { throw new Error(e.response && e.response.data && e.response.data.message); });;

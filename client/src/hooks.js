@@ -1,6 +1,6 @@
 // @ts-check
 import { useEffect, useRef, useState } from "react";
-import { getEventSource, getMe, login, logOut } from "./api";
+import { getEventSource, getMe, login, logOut, signup } from "./api";
 import io from "socket.io-client";
 import { parseRoomName } from "./utils";
 
@@ -149,6 +149,26 @@ const useUser = (onUserLoaded = (user) => { }, dispatch) => {
       .finally(() => onLoading(false));
   };
 
+  const onSignup = (
+    username = "",
+    password = "",
+    onError = (val = null) => { },
+    onLoading = (loading = false) => { }
+  ) => {
+    onError(null);
+    onLoading(true);
+    signup(username, password)
+      .then((x) => {
+        getMe().then((user) => {
+          setUser(user);
+          setLoading(false);
+          onUserLoaded(user);
+        });
+      })
+      .catch((e) => onError(e.data))
+      .finally(() => onLoading(false));
+  };
+
   /** Log out form */
   const onLogOut = async () => {
     logOut().then(() => {
@@ -171,7 +191,7 @@ const useUser = (onUserLoaded = (user) => { }, dispatch) => {
     });
   }, [onUserLoaded, loading]);
 
-  return { user, onLogIn, onLogOut, loading };
+  return { user, onLogIn, onSignup, onLogOut, loading };
 };
 
 export {

@@ -36,11 +36,11 @@
 .btn {
   display: inline-block;
   font-weight: 400;
-  color: #495057;
+  /* color: #495057; */
   text-align: center;
   vertical-align: middle;
   user-select: none;
-  background-color: transparent;
+  /* background-color: transparent; */
   border: 1px solid transparent;
   border-radius: 30px !important;
   padding: 0.47rem 0.75rem;

@@ -1,6 +1,7 @@
 // @ts-check
 import React, { useEffect, useCallback } from "react";
 import Login from "./components/Login";
+// import Signup from "./components/Signup";
 import Chat from "./components/Chat";
 import { getOnlineUsers, getRooms } from "./api";
 import useAppStateContext, { AppContext } from "./state";
@@ -17,6 +18,7 @@ const App = () => {
     state,
     dispatch,
     onLogIn,
+    onSignup,
     onMessageSend,
     onLogOut,
   } = useAppHandlers();
@@ -37,7 +39,7 @@ const App = () => {
       >
         <Navbar />
         {showLogin ? (
-          <Login onLogIn={onLogIn} />
+          <Login onLogIn={onLogIn} onSignup={onSignup} />
         ) : (
           <Chat user={user} onMessageSend={onMessageSend} onLogOut={onLogOut} />
         )}
@@ -59,7 +61,7 @@ const useAppHandlers = () => {
     [dispatch, state.users]
   );
 
-  const { user, onLogIn, onLogOut, loading } = useUser(onUserLoaded, dispatch);
+  const { user, onLogIn, onSignup, onLogOut, loading } = useUser(onUserLoaded, dispatch);
   const [socket, connected] = useSocket(user, dispatch);
 
   /** Socket joins specific rooms once they are added */
@@ -158,6 +160,7 @@ const useAppHandlers = () => {
     state,
     dispatch,
     onLogIn,
+    onSignup,
     onMessageSend,
     onLogOut,
   };

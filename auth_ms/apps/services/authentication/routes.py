@@ -18,12 +18,15 @@ from apps.services.authentication import blueprint
 # from apps.services.authentication.util import verify_pass
 import logging, requests, json, os
 from auth0.authentication import GetToken, Database, Users
+from auth0.management import UsersByEmail
 from dotenv import load_dotenv
 load_dotenv()
 
 auth0_domain = os.getenv('AUTH0_DOMAIN')
 auth0_client = os.getenv('AUTH0_CLIENT_ID')
 auth0_secret = os.getenv('AUTH0_SECRET')
+auth0_mgnt_client_id = os.getenv('AUTH0_MGNT_CLIENT_ID')
+auth0_mgnt_secret = os.getenv('AUTH0_MGNT_SECRET')
 chat_service_endpoint = os.getenv("CHAT_ENDPOINT_URL", "http://192.168.144.18:5000")
 
 @blueprint.route('/')
@@ -47,10 +50,6 @@ def login(user=None, passw=None):
         password = request.json['password']
     else:
         password = passw 
-
-    # logging.info(username)
-    # logging.info(password)
-    # Locate user
 
     token = GetToken(auth0_domain, auth0_client, client_secret=auth0_secret)
 
@@ -99,9 +98,30 @@ def logout():
 
     # users = Users('1724-chat.us.auth0.com', 'SQfDlgv1W9DiYlQlrJKAwbjqd6ybwsxW')
 
-    # response = users.userinfo(access_token=access_token)
+    response = requests.post(chat_service_endpoint + '/logout')
+    print(response)
+    
+    return json.loads(response.text)
 
-    return {"success": True}
+# @blueprint.route('/checkUser', methods=['POST'])
+def isUserExists(emailAddr=None):
+    if 'email' in request.json:
+        email = request.json['email']
+    elif emailAddr is not None:
+        email = emailAddr 
+
+    get_token = GetToken(auth0_domain, auth0_mgnt_client_id, client_secret=auth0_mgnt_secret)
+    token = get_token.client_credentials('https://{}/api/v2/'.format(auth0_domain))
+    mgmt_api_token = token['access_token']
+    searchEmail = UsersByEmail(auth0_domain, mgmt_api_token)
+    data = searchEmail.search_users_by_email(email)
+
+    if len(data)>0:
+        response = {"UserExists": True}
+    else:
+        response = {"UserExists": False}
+
+    return response
 
 @blueprint.route('/signup', methods=['POST'])
 def register():
@@ -109,6 +129,11 @@ def register():
         username = request.json['username']
         password = request.json['password']
 
+        UserExists = isUserExists(username)
+
+        if UserExists['UserExists']==True:
+            return "User already exists", 400 
+        
         database = Database(auth0_domain, auth0_client)
 
         signup = database.signup(email=username, password=password, connection='Username-Password-Authentication')
