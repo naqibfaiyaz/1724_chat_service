@@ -1,10 +1,15 @@
-FROM python:3.8
-
-WORKDIR /app
-
-COPY requirements.txt requirements.txt
+# Use Python37
+FROM python:3.7
+# Copy requirements.txt to the docker image and install packages
+COPY requirements.txt /
 RUN pip install -r requirements.txt
-
-COPY . .
-
-CMD ["python", "app.py"]
+# Set the WORKDIR to be the folder
+COPY . /app
+COPY .env .env
+# Expose port 8080
+EXPOSE 5010
+ENV PORT 5010
+ENV DEBUG True
+WORKDIR /app
+# Use gunicorn as the entrypoint
+CMD exec gunicorn --bind :$PORT --worker-class eventlet -w 1 app:app

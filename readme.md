@@ -47,7 +47,19 @@ $ docker build --tag 'auth0' .
 $ docker run --env-file ./.env -d --name auth0 -p 5005:5005 auth0:latest
 ```
 
-5. Run API Gateway Krakend
+
+5. Run file microservice in container
+```bash
+$ cd ../file_ms
+$ cp .env.example .env
+```
+update AWS_API_GATEWAY value in .env file based on your AWS API gateway endpoint; then run the following
+```bash
+$ docker build --tag 'file_ms' .
+$ docker run --env-file ./.env -d --name file_ms -p 5010:5010 file_ms:latest
+```
+
+6. Run API Gateway Krakend
 ```bash
 $ cd ../krakend
 ```

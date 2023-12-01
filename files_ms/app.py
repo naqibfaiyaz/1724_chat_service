@@ -1,11 +1,10 @@
-import os
-import requests
-import mimetypes
+import os, logging, requests, mimetypes
 from flask import Flask, request, jsonify
 from urllib.parse import quote  # Import the quote function from urllib.parse
 app = Flask(__name__)
 
-api_url = 'https://g3b0zrn210.execute-api.us-east-1.amazonaws.com/dev/ece1724/'
+app.logger.setLevel(logging.DEBUG)
+api_url = os.getenv('AWS_API_GATEWAY')
 
 def file_put(file_name, bucket_file):
     print(file_name, bucket_file)
@@ -22,12 +21,15 @@ def file_get(file_name, bucket_file):
     print(file_name, bucket_file)
     url=api_url+bucket_file
     response = requests.get(url)
-    path = os.path.join('download', file_name)
+    # path = os.path.join('download', file_name)
 
     #saving the file
-    with open(path, "wb") as file:
-        file.write(response.content)
+    # with open(path, "wb") as file:
+    #     file.write(response.content)
     # print(response.status_code)
+    app.logger.debug(response)
+    app.logger.debug(response.content)
+    return response
 
 @app.route('/upload', methods=['POST','PUT'])
 def upload_file():
