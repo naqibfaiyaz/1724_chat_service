@@ -403,6 +403,39 @@
       }
     },
     {
+      "endpoint": "/v1/upload",
+      "method": "POST",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/upload",
+          "encoding": "json",
+          "sd": "static",
+          "method": "POST",
+          "extra_config": {
+            "modifier/body-generator": {
+              "template": "ewogICAgInVzZXJuYW1lIjogInt7LnJlcV9wYXJhbXMudXNlcm5hbWV9fSIsCiAgICAicGFzc3dvcmQiOiAie3sucmVxX3BhcmFtcy5wYXNzd29yZH19Igp9"
+            }
+          },
+          "host": [
+            "http://host.docker.internal:5010"
+          ],
+          "disable_host_sanitize": false
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": [
+            "SQfDlgv1W9DiYlQlrJKAwbjqd6ybwsxW"
+          ],
+          "jwk_url": "https://1724-chat.us.auth0.com/.well-known/jwks.json",
+          "cache": true,
+          "issuer": "https://1724-chat.us.auth0.com/"
+        }
+      }
+    },
+    {
       "endpoint": "/v1/auth/signup",
       "method": "POST",
       "output_encoding": "no-op",
