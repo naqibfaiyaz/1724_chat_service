@@ -17,7 +17,7 @@ spec:
         image: naqib/krakend:latest
         ports:
         - containerPort: 8090
-        imagePullPolicy: Never
+        imagePullPolicy: Always
         command: [ "/usr/bin/krakend" ]
         args: [ "run", "-d", "-c", "/etc/krakend/krakend.json", "-p", "8080" ]
         securityContext:
