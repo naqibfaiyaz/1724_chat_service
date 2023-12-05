@@ -162,6 +162,18 @@ def get_messages_for_selected_room(room_id="0"):
     except:
         return jsonify(None), 400
 
+@app.route("/user/<username>")
+@auth_middleware
+def get_user_by_username(username):
+    app.logger.debug(username)
+    try:
+        user = utils.get_username(username),
+        app.logger.debug(user)
+        return jsonify({"userId": user[0]}) if user[0] else jsonify(None)
+    except Exception as e:
+        app.logger.debug(e)
+        return jsonify(None), 400
+
 @app.route("/room/create", methods=["POST"])
 @auth_middleware
 def create_chat_room():

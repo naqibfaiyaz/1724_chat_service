@@ -3,6 +3,7 @@ axios.defaults.withCredentials = true;
 
 const CHAT_URL = '/v1/chat';
 const AUTH_URL = '/v1/auth';
+const FILE_URL = '/v1';
 const STREAM_URL = '';
 
 axios.interceptors.request.use(
@@ -24,6 +25,7 @@ export const MESSAGES_TO_LOAD = 15;
 const url = x => `${CHAT_URL}${x}`;
 const auth_url = x => `${AUTH_URL}${x}`;
 const stream_url = x => `${STREAM_URL}${x}`;
+const file_url = x => `${FILE_URL}${x}`;
 
 
 /** Checks if there's an existing session. */
@@ -63,6 +65,26 @@ export const signup = (username, password) => {
     }
   )
     .catch(e => { throw(e.response); });
+};
+
+/** Handle file ipload */
+export const fileUpload = (file) => {
+  console.log(file)
+  const formData = new FormData();
+  formData.append('files', file);
+
+  // Set up the request configuration
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  };
+  return axios.post(file_url('/upload'), formData, config)
+  .then(x =>{
+      return x
+    }
+  )
+  .catch(e => { throw new Error(e.response && e.response.data && e.response.data.message); });
 };
 
 export const logOut = () => {

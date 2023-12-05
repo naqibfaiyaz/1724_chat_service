@@ -204,6 +204,12 @@ span.pseudo-link:hover {
   height: 100%;
 }
 
+.upload-icon{
+  display: flex;
+  margin: 10px;
+  align-items: center;
+}
+
 .chat-input {
   border-radius: 15px !important;
   background-color: #eff2f7 !important;
