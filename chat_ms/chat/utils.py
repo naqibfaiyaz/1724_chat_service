@@ -15,6 +15,9 @@ redis_client = get_config().redis_client
 def make_username_key(username):
     return f"username:{username}"
 
+def get_username(username):
+    user = redis_client.get(f"username:{username}")
+    return redis_client.get(f"username:{username}").decode("utf-8").split(":")[1] if user else None
 
 def create_user(userId, username):
     username_key = make_username_key(username)

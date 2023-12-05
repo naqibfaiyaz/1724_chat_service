@@ -60,9 +60,14 @@ export default function Chat({ onLogOut, user, onMessageSend }) {
             message={message}
             setMessage={setMessage}
             onSubmit={(e) => {
-              e.preventDefault();
-              onMessageSend(message.trim(), roomId);
-              setMessage("");
+              if (!e.message) {
+                e.preventDefault();
+                onMessageSend(message.trim(), roomId);
+                setMessage("");
+              } else{
+                onMessageSend(e.message.trim(), roomId);
+                setMessage("");
+              }
 
               messageListElement.current.scrollTop =
                 messageListElement.current.scrollHeight;

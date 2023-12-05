@@ -291,6 +291,34 @@
       }
     },
     {
+      "endpoint": "/v1/chat/user/{username}",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/user/{username}",
+          "encoding": "json",
+          "sd": "static",
+          "method": "GET",
+          "host": [
+            "http://host.docker.internal:5000"
+          ],
+          "disable_host_sanitize": false
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": [
+            "SQfDlgv1W9DiYlQlrJKAwbjqd6ybwsxW"
+          ],
+          "jwk_url": "https://1724-chat.us.auth0.com/.well-known/jwks.json",
+          "cache": true,
+          "issuer": "https://1724-chat.us.auth0.com/"
+        }
+      }
+    },
+    {
       "endpoint": "/v1/chat/rooms/{userId}",
       "method": "GET",
       "output_encoding": "json-collection",
@@ -386,6 +414,39 @@
           },
           "host": [
             "http://host.docker.internal:5005"
+          ],
+          "disable_host_sanitize": false
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": [
+            "SQfDlgv1W9DiYlQlrJKAwbjqd6ybwsxW"
+          ],
+          "jwk_url": "https://1724-chat.us.auth0.com/.well-known/jwks.json",
+          "cache": true,
+          "issuer": "https://1724-chat.us.auth0.com/"
+        }
+      }
+    },
+    {
+      "endpoint": "/v1/upload",
+      "method": "POST",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/upload",
+          "encoding": "json",
+          "sd": "static",
+          "method": "POST",
+          "extra_config": {
+            "modifier/body-generator": {
+              "template": "ewogICAgInVzZXJuYW1lIjogInt7LnJlcV9wYXJhbXMudXNlcm5hbWV9fSIsCiAgICAicGFzc3dvcmQiOiAie3sucmVxX3BhcmFtcy5wYXNzd29yZH19Igp9"
+            }
+          },
+          "host": [
+            "http://host.docker.internal:5010"
           ],
           "disable_host_sanitize": false
         }
