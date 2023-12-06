@@ -9,10 +9,13 @@
  helm install grafana bitnami/grafana
  kubectl create -f auth-ms-deployment-definition.yaml
  kubectl create -f auth-ms-autoscale.yaml
+ kubectl create -f auth-ms-service.yaml
  kubectl create -f chat-ms-deployment-definition.yaml
  kubectl create -f chat-ms-autoscale.yaml
+ kubectl create -f chat-ms-service.yaml
  kubectl create -f files-ms-deployment-definition.yaml
  kubectl create -f files-ms-autoscale.yaml
+ kubectl create -f files-ms-service.yaml
  kubectl create -f krakend-deployment-definition.yaml
  kubectl create -f krakend-autoscale.yaml
  kubectl create -f krakend-service-definition.yaml
