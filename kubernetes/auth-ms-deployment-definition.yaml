@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth0-deployment
+  name: auth-ms-deployment
   labels:
-    app: auth0
+    app: auth-ms
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: files-ms
+      app: auth-ms
   template:
     metadata:
       labels:
-        app: files-ms
+        app: auth-ms
     spec:
       containers:
-      - name: files-ms
-        image: naqib/file_ms:latest
+      - name: auth-ms
+        image: naqib/auth0:latest
         ports:
-        - containerPort: 5010
+        - containerPort: 5001
