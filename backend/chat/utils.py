@@ -61,7 +61,7 @@ def get_private_room_id(user1, user2):
         return None
     min_user_id = user2 if user1 > user2 else user1
     max_user_id = user1 if user1 > user2 else user2
-    return f"{user1}:{user2}"
+    return f"{min_user_id}:{max_user_id}"
 
 
 def create_private_room(user1, user2, host_name, guest_name):

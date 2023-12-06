@@ -203,6 +203,40 @@ span.pseudo-link:hover {
 .chat-list-container {
   height: 100%;
 }
+.search-results-dropdown {
+  /* position: absolute; */
+  background-color: white;
+  border: 1px solid #ddd;
+  z-index: 1000;
+  width: 100%;
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+}
+.dropdown-item:hover {
+  background-color: #f8f8f8;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: block;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
 
 .upload-icon{
   display: flex;

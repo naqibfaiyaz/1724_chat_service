@@ -89,7 +89,8 @@ const useChatHandlers = (/** @type {import("../../state").UserEntry} */ user) =>
     let roomId = targetUser.room;
     if (roomId === undefined) {
       // @ts-ignore
-      const room = await addRoom(userId, user.id);
+      console.log(user.id, userId, localStorage.getItem('username'),state.users[userId].username)
+      const room = await addRoom(user.id, userId, localStorage.getItem('username'),state.users[userId].username);
       roomId = room.id;
       /** We need to set this room id to user. */
       dispatch({ type: "set user", payload: { ...targetUser, room: roomId } });

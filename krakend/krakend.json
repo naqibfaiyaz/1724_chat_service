@@ -348,6 +348,34 @@
       }
     },
     {
+      "endpoint": "/v1/chat/room/create",
+      "method": "POST",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/room/create",
+          "encoding": "json",
+          "sd": "static",
+          "method": "POST",
+          "host": [
+            "http://host.docker.internal:5000"
+          ],
+          "disable_host_sanitize": false
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": [
+            "SQfDlgv1W9DiYlQlrJKAwbjqd6ybwsxW"
+          ],
+          "jwk_url": "https://1724-chat.us.auth0.com/.well-known/jwks.json",
+          "cache": true,
+          "issuer": "https://1724-chat.us.auth0.com/"
+        }
+      }
+    },
+    {
       "endpoint": "/v1/chat/stream",
       "method": "GET",
       "output_encoding": "json",

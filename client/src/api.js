@@ -67,7 +67,7 @@ export const signup = (username, password) => {
     .catch(e => { throw(e.response); });
 };
 
-/** Handle file ipload */
+/** Handle file upload */
 export const fileUpload = (file) => {
   console.log(file)
   const formData = new FormData();
@@ -86,6 +86,21 @@ export const fileUpload = (file) => {
   )
   .catch(e => { throw new Error(e.response && e.response.data && e.response.data.message); });
 };
+
+
+/** Handle user search */
+export const userSearch = (username) => {
+  return axios.get(url('/user/' + username))
+  .then(x =>{
+      return x
+    }
+  )
+  .catch(e => { throw new Error(e.response && e.response.data && e.response.data.message); });
+};
+
+/** Handle new room */
+// export const addNewRoom = (hostId, guestId, hostEmail, guestEmail) => {
+// };
 
 export const logOut = () => {
   return axios.post(auth_url('/logout')).then(x => {
@@ -160,8 +175,12 @@ export const getOnlineUsers = () => {
 };
 
 /** This one is called on a private messages room created. */
-export const addRoom = async (user1, user2) => {
-  return axios.post(url(`/room`), { user1, user2 }).then(x => x.data);
+export const addRoom = async (hostId, guestId, hostEmail, guestEmail) => {
+  return axios.post(url(`/room/create/`), { 
+    host: hostId, 
+    guest: guestId, 
+    host_name: hostEmail, 
+    guest_name: guestEmail }).then(x => x.data);
 };
 
 /** 
