@@ -33,3 +33,10 @@ spec:
         env:
         - name: KRAKEND_PORT
           value: "8090"
+        resources:
+          requests:
+            cpu:  5m
+            memory: 125Mi
+          limits:
+            cpu: 10m
+            memory: 250Mi

@@ -19,3 +19,11 @@ spec:
         image: naqib/file_ms:latest
         ports:
         - containerPort: 5010
+        resources:
+          requests:
+            cpu:  5m
+            memory: 125Mi
+          limits:
+            cpu: 10m
+            memory: 250Mi
+
