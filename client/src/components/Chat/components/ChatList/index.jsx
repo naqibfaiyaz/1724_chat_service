@@ -2,16 +2,16 @@
 import React, { useMemo, useState } from "react";
 import ChatListItem from "./components/ChatListItem";
 import Footer from "./components/Footer";
-import { userSearch, addRoom, getRooms } from "../../../../api";
+import { addRoom, getRooms } from "../../../../api";
 
 const ChatList = ({ rooms, dispatch, user, currentRoom, onLogOut }) => {
   // useEffect(() => {
   //   // console.log("Initial rooms:", rooms); // Check what's in the initial rooms prop
   //   // setRoomsData(rooms)
   // }, [rooms]);
-  const [searchInput, setSearchInput] = useState("");
+  const [setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [roomsData, setRoomsData] = useState(rooms);
+  const [setRoomsData] = useState(rooms);
   
   // const users = [
 
@@ -35,20 +35,20 @@ const ChatList = ({ rooms, dispatch, user, currentRoom, onLogOut }) => {
   //   }
   // };
 
-  const handleChange = async (e) => {
-    e.preventDefault();
-    setSearchInput(e.target.value);
-  };
+  // const handleChange = async (e) => {
+  //   e.preventDefault();
+  //   setSearchInput(e.target.value);
+  // };
 
-  const handleKeyPress = async (e) => {
-    if (e.key === 'Enter') {
-      const userData = await userSearch(e.target.value.toLowerCase());
-      console.log({email:e.target.value.toLowerCase(), userId: userData.data.userId})
-      setSearchResults(userData.data ? [{email:e.target.value.toLowerCase(), userId: userData.data.userId}] : []);
-    } else {
-      setSearchResults([]);
-    }
-  };
+  // const handleKeyPress = async (e) => {
+  //   if (e.key === 'Enter') {
+  //     const userData = await userSearch(e.target.value.toLowerCase());
+  //     console.log({email:e.target.value.toLowerCase(), userId: userData.data.userId})
+  //     setSearchResults(userData.data ? [{email:e.target.value.toLowerCase(), userId: userData.data.userId}] : []);
+  //   } else {
+  //     setSearchResults([]);
+  //   }
+  // };
 
   // if (searchInput.length > 3) {
   //   console.log('x');

@@ -8,8 +8,8 @@ import "../../styles/style-overrides.css"
 // const DEMO_USERS = ["Pablo", "Joe", "Mary", "Alex"];
 
 export default function Login({ onLogIn, onSignup}) {
-  const [username, setEmail] = useState("naqib3110@gmail.com");
-  const [password, setPassword] = useState("2C*GZ8Z*6#z%aah");
+  const [username, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   
   const onSubmit = async (event) => {
@@ -117,6 +117,9 @@ export default function Login({ onLogIn, onSignup}) {
             <button className="btn btn-lg btn-primary btn-block" type="submit">
               Sign in
             </button>
+            <button className="btn btn-lg btn-info btn-block" type="button" onClick={onSigningup}>
+              Sign Up
+            </button>
             <div className="login-error-anchor">
               <div className="toast-box">
                 <Toast
@@ -140,9 +143,6 @@ export default function Login({ onLogIn, onSignup}) {
             </div>
             <div style={{ height: 30 }} />
           </form>
-            <button className="btn btn-lg btn-info btn-block" type="button" onClick={onSigningup}>
-              Sign Up
-            </button>
         </div>
       </div>
     </>

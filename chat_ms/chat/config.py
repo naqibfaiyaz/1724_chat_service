@@ -8,10 +8,9 @@ load_dotenv()
 auth0_domain = os.getenv('AUTH0_DOMAIN')
 
 
-
 class Config(object):
     # Parse redis environment variables.
-    redis_endpoint_url = os.getenv("REDIS_ENDPOINT_URL", "127.0.0.1:6379")
+    redis_endpoint_url = os.getenv("REDIS_ENDPOINT_URL", "redis-master:6379")
     REDIS_HOST, REDIS_PORT = tuple(redis_endpoint_url.split(":"))
     REDIS_PASSWORD = os.getenv("REDIS_PASSWORD", None)
     SECRET_KEY = os.getenv("SECRET_KEY", "Optional default value")

@@ -26,9 +26,9 @@ const App = () => {
   if (loading) {
     return <LoadingScreen />;
   }
-
+  console.log(user);
   const showLogin = !user;
-
+  console.log(showLogin);
   return (
     <AppContext.Provider value={[state, dispatch]}>
       <div

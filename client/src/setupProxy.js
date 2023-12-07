@@ -8,7 +8,7 @@ module.exports = function(app) {
     app.use(
       '/v1/**',
       createProxyMiddleware({
-        target: 'http://localhost:8080',
+        target: 'http://chattest.shomvob.co:8080',
         changeOrigin: true
       })
     );
@@ -16,7 +16,7 @@ module.exports = function(app) {
     app.use(
         '/socket.io',
         createProxyMiddleware({
-          target: 'http://localhost:5000',
+          target: 'http://chatwstest.shomvob.co:5000',
           changeOrigin: true
         })
       );
@@ -24,7 +24,7 @@ module.exports = function(app) {
     app.use(
         '/stream',
         createProxyMiddleware({
-            target: 'http://localhost:5000',
+            target: 'http://chatwstest.shomvob.co:5000',
             changeOrigin: true
         })
     );

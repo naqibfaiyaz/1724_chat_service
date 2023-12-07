@@ -10,6 +10,7 @@ COPY .env .env
 EXPOSE 5000
 ENV PORT 5000
 ENV DEBUG True
+ENV REDIS_ENDPOINT_URL redis-master:6379
 WORKDIR /app
 # Use gunicorn as the entrypoint
 CMD exec gunicorn --bind :$PORT --worker-class eventlet -w 1 app:app
