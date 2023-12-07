@@ -18,7 +18,7 @@ spec:
       - name: auth-ms
         image: naqib/auth0:latest
         ports:
-        - containerPort: 5001
+        - containerPort: 5005
         resources:
           requests:
             cpu:  5m

@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: chat-ms-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - name: http
-    port: 8000
+    port: 5000
     targetPort: 5000
     protocol: TCP
   selector:
