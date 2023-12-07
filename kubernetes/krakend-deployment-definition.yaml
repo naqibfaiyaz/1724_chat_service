@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: krakend
-        image: naqib/krakend:latest
+        image: naqib/krakendagw5:latest
         ports:
         - containerPort: 8080
         imagePullPolicy: Always

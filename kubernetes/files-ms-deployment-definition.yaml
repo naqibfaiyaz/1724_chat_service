@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: files-ms-deployment
+  name: file-ms-deployment
   labels:
-    app: files-ms
+    app: file-ms
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: files-ms
+      app: file-ms
   template:
     metadata:
       labels:
-        app: files-ms
+        app: file-ms
     spec:
       containers:
-      - name: files-ms
-        image: naqib/file_ms:latest
+      - name: file-ms
+        image: naqib/file_ms4:latest
         ports:
-        - containerPort: 5010
+        - containerPort: 5005
         resources:
           requests:
             cpu:  5m

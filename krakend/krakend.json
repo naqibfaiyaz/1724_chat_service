@@ -21,6 +21,29 @@
       "stdout": true,
       "format": "default",
       "syslog_facility": "local3"
+    },
+    "router": {
+      "auto_options": true
+    },
+    "security/cors": {
+      "allow_origins": [
+        "*"
+      ],
+      "allow_methods": [
+        "GET",
+        "HEAD",
+        "POST"
+      ],
+      "expose_headers": [
+        "Content-Length",
+        "Content-Type"
+      ],
+      "allow_headers": [
+        "Accept-Language"
+      ],
+      "max_age": "14h",
+      "allow_credentials": true,
+      "debug": false
     }
   },
   "timeout": "10000ms",
@@ -38,7 +61,7 @@
           "sd": "static",
           "method": "POST",
           "host": [
-            "http://host.docker.internal:5005"
+            "http://auth-service:5005"
           ],
           "disable_host_sanitize": false
         }
@@ -66,7 +89,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://host.docker.internal:5000"
+            "http://chat-ms-service:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -97,7 +120,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://host.docker.internal:5000"
+            "http://chat-ms-service:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -125,7 +148,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://host.docker.internal:5000"
+            "http://chat-ms-service:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -154,7 +177,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://host.docker.internal:5000"
+            "http://chat-ms-service:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -186,7 +209,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://host.docker.internal:5000"
+            "http://chat-ms-service:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -214,7 +237,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://host.docker.internal:5000"
+            "http://chat-ms-service:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -245,7 +268,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://host.docker.internal:5000"
+            "http://chat-ms-service:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -273,7 +296,7 @@
           "sd": "static",
           "method": "POST",
           "host": [
-            "http://host.docker.internal:5000"
+            "http://chat-ms-service:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -301,7 +324,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://host.docker.internal:5000"
+            "http://chat-ms-service:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -330,7 +353,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://host.docker.internal:5000"
+            "http://chat-ms-service:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -358,7 +381,7 @@
           "sd": "static",
           "method": "POST",
           "host": [
-            "http://host.docker.internal:5000"
+            "http://chat-ms-service:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -386,7 +409,7 @@
           "sd": "static",
           "method": "GET",
           "host": [
-            "http://host.docker.internal:5000"
+            "http://chat-ms-service:5000"
           ],
           "disable_host_sanitize": false
         }
@@ -419,7 +442,7 @@
             }
           },
           "host": [
-            "http://host.docker.internal:5005"
+            "http://auth-service:5005"
           ],
           "disable_host_sanitize": false
         }
@@ -441,7 +464,7 @@
             }
           },
           "host": [
-            "http://host.docker.internal:5005"
+            "http://auth-service:5005"
           ],
           "disable_host_sanitize": false
         }
@@ -474,7 +497,7 @@
             }
           },
           "host": [
-            "http://host.docker.internal:5010"
+            "http://file-ms-service:5005"
           ],
           "disable_host_sanitize": false
         }
@@ -507,7 +530,7 @@
             }
           },
           "host": [
-            "http://host.docker.internal:5005"
+            "http://auth-service:5005"
           ],
           "disable_host_sanitize": false
         }
