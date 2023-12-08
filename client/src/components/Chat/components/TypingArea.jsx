@@ -17,6 +17,7 @@ const TypingArea = ({ message, setMessage, onSubmit }) => {
       const file = e.target.files[0];
       try {
         const fileURL = await fileUpload(file);
+        console.log(fileURL.data.response);
         setMessage(fileURL.data.response);
   
         // Call the onSubmit function manually
@@ -55,7 +56,7 @@ const TypingArea = ({ message, setMessage, onSubmit }) => {
               type="file"
               ref={fileInputRef}
               style={{ display: 'none' }}
-              onChange={onClickFileuploader} // Assuming this is your file change handler
+              onChange={onClickFileuploader} // file change handler
               accept="image/png, image/jpeg, application/pdf, text/plain" // Restrict file types
             />
             <div className="col-auto">

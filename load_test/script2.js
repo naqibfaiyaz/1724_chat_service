@@ -69,10 +69,10 @@ export default function() {
     // },
   // };
   
-  const url2 = 'http://chattest.shomvob.co:8080/v1/auth/login';
+  const url2 = 'http://chattest.shomvob.co:8080/v1/auth/signup';
   const payload2 = JSON.stringify({
-    email: 'naqib3110@gmail.com',
-    more_email: '2C*GZ8Z*6#z%aah',
+    username: 'naqib3110@gmail.com',
+    password: '2C*GZ8Z*6#z%aah',
   });
 
   const params2 = {
