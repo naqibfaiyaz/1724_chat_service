@@ -4,9 +4,9 @@ import { FormData } from 'https://jslib.k6.io/formdata/0.0.2/index.js';
 
 export const options = {
   // A number specifying the number of VUs to run concurrently.
-  vus: 1,
+  vus: 500,
   // A string specifying the total duration of the test run.
-  duration: '3s',
+  duration: '300s',
 
   // The following section contains configuration options for execution of this
   // test script in Grafana Cloud.
