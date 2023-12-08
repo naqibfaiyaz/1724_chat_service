@@ -1,10 +1,10 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true;
 
-const CHAT_URL = 'http://chattest.shomvob.co:8080/v1/chat';
-const AUTH_URL = 'http://chattest.shomvob.co:8080/v1/auth';
-const FILE_URL = 'http://chattest.shomvob.co:8080/v1';
-const STREAM_URL = 'http://chatwstest.shomvob.co:5000';
+const CHAT_URL = '/v1/chat';
+const AUTH_URL = '/v1/auth';
+const FILE_URL = '/v1';
+const STREAM_URL = '';
 
 axios.interceptors.request.use(
   config => {
