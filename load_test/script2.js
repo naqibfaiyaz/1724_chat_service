@@ -4,9 +4,9 @@ import { FormData } from 'https://jslib.k6.io/formdata/0.0.2/index.js';
 
 export const options = {
   // A number specifying the number of VUs to run concurrently.
-  vus: 500,
+  vus: 1,
   // A string specifying the total duration of the test run.
-  duration: '300s',
+  duration: '3s',
 
   // The following section contains configuration options for execution of this
   // test script in Grafana Cloud.
@@ -75,7 +75,7 @@ export default function() {
   const params2 = {
     headers: {
       'Content-Type': 'application/json',
-	  
+      'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkJObHllODlSU1lIcy03RHkzdmZnQyJ9.eyJuaWNrbmFtZSI6Im5hcWliMzExMCIsIm5hbWUiOiJuYXFpYjMxMTBAZ21haWwuY29tIiwicGljdHVyZSI6Imh0dHBzOi8vcy5ncmF2YXRhci5jb20vYXZhdGFyLzU4NTYxYzQ1OTFmMjBlZDI0ZTg0M2M3ZjEzNjA0MjhlP3M9NDgwJnI9cGcmZD1odHRwcyUzQSUyRiUyRmNkbi5hdXRoMC5jb20lMkZhdmF0YXJzJTJGbmEucG5nIiwidXBkYXRlZF9hdCI6IjIwMjMtMTItMDhUMDA6MDQ6MTkuMzg2WiIsImVtYWlsIjoibmFxaWIzMTEwQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiaXNzIjoiaHR0cHM6Ly8xNzI0LWNoYXQudXMuYXV0aDAuY29tLyIsImF1ZCI6IlNRZkRsZ3YxVzlEaVlsUWxySktBd2JqcWQ2eWJ3c3hXIiwiaWF0IjoxNzAxOTkzODU5LCJleHAiOjE3MDIwMjk4NTksInN1YiI6ImF1dGgwfDY1NjgzODkxY2JiNjBmZTQwOWYyZDcyNCJ9.DWkxAjayVNePjBve32xfCmavseBqJDiKTCYVnWhbs1nhxmq22ejZN6fDHiD331uaO03Kwbqu-m5-VmgztSQXTTmOWSpZ3zpu1eS4JTw4B2Xb4H0EkCDg2WN05pnc0vJu6tja_WfZps0JBPFhosRXoMRT_BpyvguOHswg0cAOEsY7mXoLtPQwpBQKzQpj9H-7fOD5xj0yIY8zMuRirlOgM0fdeRzT27edpOlsDlnxAVuif_8AwOLNY53EJIKJFsLG3mEp89yj6ozllxywkSisul4vFtFPse_DE8L0vt4s1-ME5MV7ZugkidwnLAEe58qrI5VhhlO-45HOGittwbO2Kw'
     },
   };
   
