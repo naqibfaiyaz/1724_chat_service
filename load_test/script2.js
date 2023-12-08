@@ -69,11 +69,8 @@ export default function() {
     // },
   // };
   
-  const url2 = 'http://chattest.shomvob.co:8080/v1/auth/signup';
-  const payload2 = JSON.stringify({
-    username: 'naqib3110@gmail.com',
-    password: '2C*GZ8Z*6#z%aah',
-  });
+  const url2 = 'http://chattest.shomvob.co:8080/v1/auth/me';
+  const payload2 = JSON.stringify({});
 
   const params2 = {
     headers: {
