@@ -92,6 +92,7 @@ def file_get(file_name, bucket_file):
 def upload_file():
     app.logger.debug(api_url)
     app.logger.debug(request.files)
+    app.logger.debug(request.files)
     if 'files' not in request.files:
         return jsonify({'error': 'No file part'}), 400
 
