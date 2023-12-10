@@ -4,9 +4,15 @@
 
 ✅ Krakend = API gateway
 
-✅ auth0 = authentication microservice
+✅ auth_ms = authentication microservice
 
-✅ backend = chat microservice
+✅ chat_ms = chat microservice
+
+✅ file_ms = file microservice
+
+✅ kubernetes = All kube deployment, service and autoscale scripts
+
+✅ load_test = Load test scripts for microservices with K6
 
 client communicates with api gateway for all rest APIs. But client directly communicates with backend for socket.io.
 
